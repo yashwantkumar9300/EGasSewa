@@ -1,0 +1,54 @@
+
+{% extends 'common.html' %}
+{% block yash %}
+    {% load static %}
+    {% include 'main_menu.html' %}
+    <style>
+         body{
+          background-color: #EFEFEF !important;
+        }
+    </style>
+
+    <table align="center" border="0" cellpadding="5" width="50%" style="background-color: white">
+    <tr>
+        <tr>
+        <td style="color: blue;font-size: 20px">
+            About E Gas Sewa
+        </td>
+    </tr>
+        <th>
+            <img src="{% static 'images/about.png' %}">
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <p>E Gas Sewa &ndash; fueling over 42 million Homes to Cook Food and Serve Love!</p>
+            <p>E Gas Sewa comes from the house of BPCL a Fortune 500 company - a major player
+            in Refining and Marketing of petroleum Products in India.</p>
+            <p>E Gas Sewa has been a pioneer in more ways than one and brought many innovative
+             products and customer centric offerings to the customers.</p>
+            <p>Customer initiatives included launch of an exclusive website <a href="{% url 'main' %}" target="_blank">www.egassewa.in</a> way
+             back in 2000 to provide convenience of booking E Gas Sewa &lsquo;On Line&rsquo; to
+             customers apart from a host of relevant information. The website also provides
+             a feedback system enabling the consumers to directly speak to the Organisation.&nbsp; </p>
+            <p>Fully supported by the latest technological developments, the consumer can
+             also book a cylinder, track his refill supply and give feedback on other modes
+             like SMS and Mobile App 24 X 7 at their convenience.</p>
+            <p>&lsquo;Beyond LPG&rsquo;  is a value-added service launched in recognition
+             of the need to provide the housewife relief from mundane chores of household
+             shopping for low involvement products. Under this initiative, BPCL enters into
+             corporate tie-ups with reputed brands and makes available FMCG as well as home
+             appliances and kitchenware at attractive prices through the distributorship
+             network. </p>
+            <p>Not limiting to service alone, BPCL is always looking at providing
+              better options in terms of products too. a
+              truly innovative product was a result of continuous research. An efficient
+              and cost effective substitute for Acetylene, it is indeed a revolutionary product
+              for the cutting and brazing industry.</p>
+
+        </th>
+    </tr>
+    </table>
+
+    <br><br>
+{% endblock %}

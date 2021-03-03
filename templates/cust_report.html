@@ -1,0 +1,54 @@
+
+{% if request.session.dealer_id %}
+    {% load static %}
+    <style>
+        .data{
+            text-align: center;
+            color: darkslateblue;
+        }
+        .header{
+            text-align: center;
+            font-size: 20px;
+            color: #ff00ff;
+            background-color: #d6edf8;
+        }
+    </style>
+    <br>
+
+    <table align="center" border="2" cellpadding="5">
+    <tr>
+        <th colspan="7" style="text-align: center;font-size: 20px;background-color: #14498c;color: white">
+            Booking Report
+        </th>
+    </tr>
+    <tr>
+        <th class="header"> Booking Date </th>
+        <th class="header"> Reference No </th>
+        <th class="header"> Payment Id </th>
+        <th class="header"> Customer Id </th>
+        <th class="header"> Cylinder </th>
+        <th class="header"> Price </th>
+        <th class="header"> Status </th>
+
+    </tr>
+    {% for x in data %}
+        <tr>
+        <th class="data"> {{ x.date }}</th>
+        <th class="data"> {{ x.reference }}</th>
+        <th class="data"> {{ x.paymentid }}</th>
+         <th class="data"> {{ x.customer.idno }}</th>
+        <th class="data"> {{ x.quantity }}</th>
+        <th class="data"> {{ x.price }}0</th>
+
+        <th class="data"> {{ x.status }}</th>
+        </tr>
+
+    {% endfor %}
+
+    </table>
+
+<br><br>
+
+{% else %}
+    <h3 style="text-align: center;color: magenta"> Please Login ! </h3>
+{% endif %}

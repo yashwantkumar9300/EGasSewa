@@ -1,0 +1,78 @@
+
+{% extends 'common.html' %}
+{% block yash %}
+    {% load static %}
+    {% include 'user_menu.html' %}
+    <style>
+        .con_right_heading {
+            border-bottom: 1px dotted #e40083;
+            text-align: left;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            color: #14498c;
+        }
+    </style>
+    <br>
+    <h5 class="con_right_heading"> Customer Console </h5>
+    <br>
+    <table align="center" width="90%" cellpadding="5">
+        <tr>
+            <th style="text-align: center;background-color: #14498c;color: white;font-size: 20px">
+                Welcome <font style="color: yellow">{{ data.fname }} {{ data.lname }}</font> to Customer Console
+            </th>
+        </tr>
+    </table>
+
+    <br>
+    <div style="alignment: center;width: 90%; margin-left: 70px">
+    <table class="table table-striped">
+  <thead>
+    <tr>
+
+      <th scope="col"> Consumer Status </th>
+      <th scope="col"> Active </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"> Consumer Number </th>
+      <td> {{ data.idno }}</td>
+
+    </tr>
+    <tr>
+      <th scope="row"> Consumer Name </th>
+      <td> {{ data.fname }} {{ data.lname }} </td>
+    </tr>
+    <tr>
+    <tr>
+      <th scope="row"> Mobile Number </th>
+      <td> {{ data.mobile }} </td>
+    </tr>
+      <th scope="row"> Email-Id </th>
+      <td> {{ data.email }}</td>
+    </tr>
+    <tr>
+      <th scope="row"> Address </th>
+      <td> {{ data.house }} {{ data.street }} {{ data.city }} {{ data.district }} <br> {{ data.state }}</td>
+    </tr>
+    <tr>
+      <th scope="row"> Pin Code </th>
+      <td> {{ data.pincode }}</td>
+    </tr>
+    <tr>
+      <th scope="row"> Distributor Code </th>
+      <td> {{ data1.idno }}</td>
+    </tr>
+    <tr>
+      <th scope="row"> Distributor Name </th>
+      <td> {{ data.distributor.agency_name }}</td>
+    </tr>
+    <tr>
+      <th scope="row"> Distributor Address </th>
+      <td> {{ data1.agency_add }}</td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+<br>
+{% endblock %}

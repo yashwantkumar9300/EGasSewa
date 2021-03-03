@@ -1,0 +1,64 @@
+
+{% extends 'common.html' %}
+{% block yash %}
+    {% load static %}
+    {% include 'main_menu.html' %}
+    <style>
+        .con_right_heading {
+            border-bottom: 1px dotted #e40083;
+            text-align: left;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            color: #14498c;
+        }
+    </style>
+    <br>
+    <h5 class="con_right_heading"> Quick Book & Pay </h5>
+    <h5> Welcome - <font color="red">{{ data.fname }} {{ data.lname }} </font> </h5>
+    <h5> Distributor Details : {{ data.distributor.agency_name }} </h5>
+    <br>
+
+    <form action="{% url 'payment_page' %}" method="post">
+    {% csrf_token %}
+    <h5 style="text-align: center;color: red;"> *** Please check your details before proceeding. Prices will be as applicable on the date of delivery *** </h5>
+    <table align="center" border="2" cellpadding="5" width="64%">
+        <tr style="background-color: #14498c;color: white">
+            <th> Sr No. </th>
+            <th> Product Name </th>
+        </tr>
+        <tr>
+            <th> 1. </th>
+            <th> {{ data.cylinder }} Cylinder
+                <input type="hidden" name="t3" value="{{ data.idno }}">
+                <input type="hidden" name="t4" value="{{ data.distributor.d_id }}">
+            </th>
+
+        </tr>
+        <tr>
+            <th> Mobile Number <font color="red"> * </font> </th>
+            <th> <input class="form-control" type="tel" placeholder="Mobile Number" name="t1" required maxlength="10" pattern="[6789][0-9]{9}"></th>
+        </tr>
+    </table>
+    <br>
+    {% for x in price %}
+    <h5 style="text-align: center"> <b> Amount to be paid : Rs {{ x.price }}0 </b> </h5>
+    <h5 style="text-align: center;color: darkgreen;"> Amount to be paid using Digital payment mode : Rs {{ x.price }}0 </h5>
+     <input type="hidden" name="t2" value="{{ x.price }}">
+    {% endfor %}
+    <br>
+    <h4 class="con_right_heading"> Terms & Conditions </h4>
+    <ol>
+    <li> The price of refill cylinder indicated here is tentative. The price applicable on the date of delivery will be the final price. </li>
+    <li> The amount paid now shall be treated as advance and will be adjusted against the actual refill price at the time of delivery. </li>
+    <li> Excess amount if paid by you shall be refunded to you by the distributor at the time of delivery. Please ensure collection of excess paid amount from the delivery boy. </li>
+    <li> If amount paid is less, then the differential amount to be paid to the delivery boy of the distributor. </li>
+    <li> The final refill cost will be provided on the cash memo. </li>
+    <li> The delivery is deemed complete when the cylinder is given to the person at the consumer’s premises and signature obtained. No disputes will be entertained in this regard. </li>
+    <li> The transaction charges for opting online payment would be borne by you over and above the cost of the refill (Currently it is Rs 7/- per transaction). </li>
+    <li> In case the refill could not be delivered at the residence of the consumer due to various reasons or booking cancelled by the consumer, the amount paid would be refunded/adjusted against next booking after deducting the online payment transaction charges. </li>
+    </ol>
+     <h5 style="padding-left: 200px"> <input type="checkbox" required> I accept the above terms & conditions. <img src="{% static 'images/right.gif' %}">  <span style="padding-left: 100px"> <button type="submit" class="btn btn-outline-danger"> Accept & Pay Online </button> </span></h5>
+    </form>
+
+    <br><br>
+{% endblock %}

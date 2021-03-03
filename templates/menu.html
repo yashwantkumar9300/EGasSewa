@@ -1,0 +1,19 @@
+
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;padding-left: 30px">
+  <a class="navbar-brand" href="{% url 'distributor_login' %}" style="font-family: 'Times New Roman';padding-left: 10px"> Login </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'distributor_register' %}" style="font-size: 18px;font-family: 'Times New Roman'"> New Registration <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'distributor_status' %}" style="font-size: 18px;font-family: 'Times New Roman'"> Check Status </a>
+      </li>
+
+    </ul>
+  </div>
+</nav>

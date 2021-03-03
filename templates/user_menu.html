@@ -1,0 +1,32 @@
+
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;padding-left: 30px">
+  <a class="navbar-brand" href="{% url 'user_home' %}" style="font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-primary"> Home </button></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'book_now' %}" style="font-size: 18px;font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-primary"> Book Now </button> </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'quick_book' %}" style="font-size: 18px;font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-primary"> Quick Book & Pay </button></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'view_user_booking' %}" style="font-size: 18px;font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-primary"> View Cylinder Booking </button></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'view_user_payment' %}" style="font-size: 18px;font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-primary"> View Payment Details </button></a>
+      </li>
+      <li class="nav-item active" style="padding-left: 600px">
+        <a class="nav-link" href="{% url 'user_login_check' %}" style="font-size: 18px;font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-danger"> Signout </button> <span class="sr-only">(current)</span></a>
+      </li>
+
+{#      <li class="nav-item active" style="padding-left: 850px">#}
+{#        <a class="nav-link" href="{% url 'user_login_check' %}" style="font-size: 18px;font-family: 'Times New Roman';color: fuchsia"> <img src="{% static 'images/Logout icon - Copy.png' %}" width="30" height="30"> </a>#}
+{#      </li>#}
+    </ul>
+  </div>
+</nav>

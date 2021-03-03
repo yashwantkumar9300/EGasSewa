@@ -1,0 +1,43 @@
+
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;padding-left: 30px">
+  <a class="navbar-brand" href="{% url 'admin_home' %}" style="font-family: 'Times New Roman'"> Home </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'view_dealers' %}" style="font-size: 18px;font-family: 'Times New Roman'"> View Distributors <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'view_connection' %}" style="font-size: 18px;font-family: 'Times New Roman'"> View Connections </a>
+      </li>
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" style="font-size: 18px;font-family: 'Times New Roman'" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Add Locations
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'add_state' %}" style="font-size: 18px;font-family: 'Times New Roman'"> Add State </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'add_district' %}" style="font-size: 18px;font-family: 'Times New Roman'"> Add District </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'dealer_address' %}" style="font-size: 18px;font-family: 'Times New Roman'"> Add Distributor Agency </a>
+        </div>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'add_price' %}" style="font-size: 18px;font-family: 'Times New Roman'"> Add Price </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'booking_report' %}" style="font-size: 18px;font-family: 'Times New Roman'"> Booking Report </a>
+      </li>
+       <li class="nav-item active" style="padding-left: 465px">
+        <a class="nav-link" href="{% url 'admin_pass_form' %}" style="font-size: 18px;font-family: 'Times New Roman'"> Change Password </a>
+      </li>
+      <li class="nav-item active" style="padding-left: 10px">
+        <a class="nav-link" href="{% url 'admin_login_check' %}" style="font-size: 18px;font-family: 'Times New Roman';color: fuchsia"> <img src="{% static 'images/Logout icon - Copy.png' %}" width="30" height="30"> </a>
+      </li>
+    </ul>
+  </div>
+</nav>

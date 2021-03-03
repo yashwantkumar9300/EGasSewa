@@ -1,0 +1,454 @@
+
+{% extends 'common.html' %}
+{% block yash %}
+    {% load static %}
+    {% include 'main_menu.html' %}
+
+    <style>
+        .one{
+             background: -webkit-linear-gradient(left, #007CBA, #CCCCFF) !important;
+        background: -o-linear-gradient(left, #007CBA, #CCCCFF) !important;
+        background: -moz-linear-gradient(left, #007CBA, #CCCCFF) !important;
+        background: linear-gradient(left, #007CBA, #CCCCFF) !important;
+        background-color: #007CBA !important;
+        color: white !important;
+        padding: 3px !important;
+            border-radius: 5px !important;
+        border-top: 4px solid yellow !important;
+        }
+        body{
+          background-color: #EFEFEF !important;
+        }
+     canvas{
+    /*prevent interaction with the canvas*/
+    pointer-events:none;
+    }
+    </style>
+    <br>
+    {% if msg %}
+        <h3 style="text-align: center;color: magenta"> {{ msg }}</h3> <br>
+    {% endif %}
+
+    <form onsubmit="return validateCaptcha()" action="{% url 'user_save' %}" method="post" enctype="multipart/form-data" id="personForm" data-cities-url="{% url 'ajax_load_district' %}" data-dist-url="{% url 'ajax_load_distributor' %}">
+    {% csrf_token %}
+    <table align="center" border="0" cellpadding="7" width="70%">
+        <tr>
+            <th colspan="4" style="text-align: center;background-color: #14498c;color: white;font-size: 20px">
+                Register For New LPG Connection
+            </th>
+        </tr>
+        <tr><th> </th></tr>
+        <tr>
+            <th colspan="4" style="text-align: center;color: red;font-size: 20px"> All fields marked with * are mandatory </th>
+        </tr>
+        <tr>
+            <th colspan="4" class="one"> Search Distributor </th>
+        </tr>
+        <tr>
+            <th> Select State <font color="red">*</font> </th>
+            <th>
+                <select class="form-control" name="t1" id="state_id" required>
+                    <option> --Select a State-- </option>
+                    {% for x in s_data %}
+                        <option value="{{ x.state_id }}">{{ x.state_name }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+            <th> Select District <font color="red">*</font> </th>
+            <th>
+                <select class="form-control" name="t2" id="dict_id" required>
+                    <option> --Select a District-- </option>
+
+                </select>
+            </th>
+        </tr>
+
+        <tr>
+            <th> Select Distributor <font color="red">*</font> </th>
+             <th>
+                <select class="form-control" name="c3" id="distributor_id" required>
+                    <option> --Select a Distributor-- </option>
+
+                </select>
+            </th>
+        </tr>
+        <tr>
+            <th colspan="4" class="one"> Personal Details </th>
+        </tr>
+        <tr>
+            <th> First Name <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="text" placeholder="First name" name="t4" required pattern="[A-Za-z- ]+" title= "Alphabets only"> </th>
+            <th> Last Name <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="text" placeholder="Last Name" name="t5" required pattern="[A-Za-z- ]+" title= "Alphabets only">
+            </th>
+        </tr>
+        <tr>
+            <th> Father's Name <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="text" placeholder="Father's Name" name="t6" required pattern="[A-Za-z- ]+" title= "Alphabets only">
+            </th>
+            <th> Date of Birth <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="date" placeholder="Date of Birth" name="t7" required>
+            </th>
+        </tr>
+        <tr>
+            <th> Gender <font color="red">*</font> </th>
+            <th>
+                <select name="t8" class="form-control" required>
+                    <option> --Select Gender-- </option>
+                    <option> Male </option>
+                    <option> Female </option>
+                    <option> Other's </option>
+                </select>
+            </th>
+        </tr>
+        <tr>
+            <th colspan="4" class="one"> Address for LPG connection / Contact Information </th>
+        </tr>
+        <tr>
+            <th> Mobile Number <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="tel" placeholder="Mobile Number" name="t9" id="mobile" required maxlength="10" pattern="[6789][0-9]{9}" onblur="ajaxrequest('mobile','http://127.0.0.1:8000/check_user_mobile/','mobile1')">
+                <div id="mobile1"> </div>
+            </th>
+            <th> Email-Id <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="email" placeholder="Email-Id" name="t10" id="email" required onblur="ajaxrequest('email','http://127.0.0.1:8000/check_user_email/','email1')">
+                <div id="email1"> </div>
+            </th>
+        </tr>
+        <tr>
+            <th> House / building No <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="text" placeholder="House / building No" name="t11" required>
+            </th>
+            <th> Street Name <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="text" placeholder="Street Name" name="t12" required>
+            </th>
+        </tr>
+        <tr>
+            <th> City Town <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="text" placeholder="City / Town" name="t13" required>
+            </th>
+            <th> State <font color="red">*</font> </th>
+            <th>
+                <select class="form-control" name="t14" id="state_id1" required>
+                    <option> --Select a State-- </option>
+                    {% for x in s_data %}
+                        <option value="{{ x.state_id }}">{{ x.state_name }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+        </tr>
+        <tr>
+            <th> District <font color="red">*</font> </th>
+            <th>
+                <select class="form-control" name="t15" id="dict_id1" required>
+                    <option> --Select a District-- </option>
+
+                </select>
+            </th>
+            <th> Pin Code <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="number" placeholder="Pin Code" name="t16" required>
+            </th>
+        </tr>
+        <tr>
+            <th colspan="4" class="one"> LPG Connection Details </th>
+        </tr>
+        <tr>
+            <th> Type of Cylinder <font color="red">*</font> </th>
+            <th>
+                <select class="form-control" name="t17" required>
+                    <option> --Type of Cylinder-- </option>
+                    <option value="14.2 Kg"> 14.2 Kg </option>
+                    <option value="5 Kg"> 5 Kg </option>
+                </select>
+            </th>
+            <th> Type of Connection <font color="red">*</font> </th>
+            <th>
+                <select class="form-control" name="t18" required>
+                    <option> --Type of Connection-- </option>
+                    <option value="SBC"> SBC (Single Bottle Connection) </option>
+                    <option value="DBC"> DBC (Double Bottle Connection) </option>
+                </select>
+            </th>
+        </tr>
+        <tr>
+            <th colspan="4" class="one"> Proof of Identity </th>
+        </tr>
+        <tr>
+            <th> Identity Proof <font color="red">*</font> </th>
+            <th>
+                <select class="form-control" name="t19" required>
+                    <option> --Select ID Proof-- </option>
+                    <option> Aadhaar (UID) </option>
+                    <option> Passport </option>
+                    <option> PAN Card </option>
+                    <option> Voter ID </option>
+                    <option> Driving License </option>
+                </select>
+            </th>
+            <th> ID Card Number <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="text" placeholder=" ID Card Number" name="t20" required>
+            </th>
+        </tr>
+        <tr>
+            <th colspan="4" class="one"> Proof of Address </th>
+        </tr>
+        <tr>
+            <th> Address Proof <font color="red">*</font> </th>
+            <th>
+                <select class="form-control" name="t21" required>
+                    <option> --Select Address Proof-- </option>
+                    <option> Aadhaar (UID) </option>
+                    <option> Passport </option>
+                    <option> PAN Card </option>
+                    <option> Ration Card </option>
+                    <option> Voter ID </option>
+                    <option> Driving License </option>
+                    <option> Electricity Bill (within Last Three Months) </option>
+                </select>
+            </th>
+            <th> Address Proof ID <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="text" placeholder="Address Proof ID No" name="t22" required>
+            </th>
+        </tr>
+        <tr>
+            <th colspan="4" class="one"> Upload Documents (only .jpg, .jpeg, .png, .pdf files allowed) </th>
+        </tr>
+        <tr>
+            <th> Identity Proof <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="file" name="t23" required>  </th>
+            <th> Address Proof <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="file" name="t24" required> </th>
+        </tr>
+        <tr>
+            <th> Passport Size Photo <font color="red">*</font> </th>
+            <th>
+                <input class="form-control" type="file" name="t25" required> </th>
+        </tr>
+        <tr>
+            <th colspan="4" class="one"> Declaration </th>
+        </tr>
+        <tr>
+            <th colspan="4">
+                <div style="height:120px; overflow-y: scroll;padding: 5px;">
+                        <center><b><i>I Desire to take domestic LPG Connection in my name and affirm as under:</i></b></center>
+                        <ol type="1">
+                            <li>That I am an Indian citizen or Non Resident Indian or staff of Foreign nationality serving in India or Foreign national  residing In India under visa or person returning to India on transfer of residence basis / POI.</li>
+                            <li>I am above 18 years of age.</li>
+                            <li>That neither I, nor any member of the household (household means a family consisting of husband, wife, unmarried children and dependent parents living together in a dwelling unit having common kitchen), possess any LPG connection from PSU oil Companies or piped Natural Gas Connection for domestic use in our dwelling unit. ('Households' having piped Natural Gas Connection are not entitled for Subsidizes LPG).</li>
+                            <li>I do not have Ration Card in my name of in the name of in the name of any member of my 'household' as defined above. As and when a ration card is issued in my name or in the name of any of the members of the 'household' the same shall be produced to Oil Company LPG Distributor for updating Records.  (applicable if copy of ration card is not produced & verified )</li>
+                            <li>That I am enclosing the KYC form filled in along with the proof of address (POA) and proof of identity (POI).</li>
+                            <li>I confirm that the LPG Connection issued to me will be used in my above mentioned address and for domestic cooking purpose only and I shall abide by all terms governing its use.</li>
+                            <li>That I shall not position any other LP gas installation in the same kitchen.</li>
+                            <li>That as and when second cylinder is issued to me against this connection the same will also be used in the same kitchen and with the original Installation.</li>
+                            <li>That whenever I change my residence from present address to another, I will inform the LPG distributor in writing in advance for change of address in the records.</li>
+                            <li>That I am aware that the domestic sub sized LPG connection as shall be released by M/s. Hindustan Petroleum Corporation Ltd (HPCL) on the basis of this declaration and information submitted by me In the know Your Customer (KYC) form, Proof of Address , and proof of identity , shall later be subjected to de-duplication check for existence of any other domestic subsidized LPG Connection with any govt. Oil Company, In  my name or in name of any other member of 'household'.</li>
+                            <li>That If any information / declaration given by me in this undertaking the 'KYC'form or any document submitted in support of identity / residence proof shall be found untrue or incorrect or false, the Oil Company would be within its rights to withdraw the supply of gas/ Terminate the connection / seize the equipment / forfeit the security deposit and that I would have no claim what so ever against HPCL for such withdrawal / Termination / Seizure / For Future.</li>
+                            <li>I authorize my OMC/my bank to update/share my Aadhaar No./demographic data/bank account details between themselves.</li>
+                            <li>I further confirm to receive LPG Subsidy due to me into my bank account or give up my LPG subsidy based on the selection made above.</li>
+                            <li>I request the OMCs to link my aadhaar or bank a/c to my LPG account & I will advise changes if any to the Distributor/Company.</li>
+                            <li>I shall not hold OMC/MoP&NG responsible for any delays/non receipt of subsidy in case of change/closure /deactivation of my Bank Account/ Bank not in NACH or for any rejection by Bank or non-confidentiality of any information.</li>
+                            <li>If aadhaar details not given :-I don't have Aadhaar number & promise to submit Aadhaar as soon as I receive the Aadhaar number to my LPG distributor and also get it linked to my above Bank account.</li>
+                            <li>I also understand that any false declaration made above attracts punishment under Indian Penal Code.</li>
+                        </ol>
+                        <br/>
+                        I here declare that whatever has been stated above is true to the best of my knowledge, correct and nothing material has been canceled there from.
+                    </div>
+            </th>
+        </tr>
+        <tr>
+            <td colspan="4" style="padding-top: 20px;">
+                    <input type="checkbox" required />&nbsp;&nbsp;I accept above declaration.<img src="{% static 'images/right.gif' %}">
+                </td>
+        </tr>
+        <tr>
+            <th> Captcha Code <font color="red">*</font> </th>
+        <th>
+            <input class="form-control" type="text" placeholder="Enter Captcha code shown below" name="t3" id="cpatchaTextBox" required>
+        </th>
+        <th colspan="2" style="font-family: 'Times New Roman'; font-size: 20px; color: red">
+            <table border="0" width="300" cellpadding="1">
+            <tr>
+                <th> Captcha Code : </th>
+                <th> <span id="captcha"> </span> </th>
+                <th>
+                    <img src="{% static 'images/refresh.png' %}" width="25" height="25" onclick="createCaptcha()">
+                </th>
+            </tr>
+            </table>
+
+        </th>
+        </tr>
+        <tr>
+            <th colspan="4" style="text-align: center;padding-top: 30px">
+                <button type="submit" class="btn btn-outline-primary"> Register </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="reset" class="btn btn-outline-danger"> Reset </button>
+            </th>
+        </tr>
+    </table>
+    </form>
+
+<br><br>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+         $("#state_id").change(function () {
+        const url = $("#personForm").attr("data-cities-url");    // get the url of the `load_cities` view
+        const countryId = $(this).val();     // get the selected country ID from the HTML input
+
+        $.ajax({                           // initialize an AJAX request
+            url: url,                      // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'stateid': countryId          // add the country id to the GET parameters
+            },
+            success: function (data) {         // `data` is the return of the `load_cities` view function
+                $("#dict_id").html(data);       // replace the contents of the city input with the data that came from the server
+                /*
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (city) {
+                    html_data += `<option value="${city.id}">${city.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_city").html(html_data);  */
+            }
+        });
+    });
+
+        $("#state_id1").change(function () {
+        const url = $("#personForm").attr("data-cities-url");    // get the url of the `load_cities` view
+        const countryId = $(this).val();        // get the selected country ID from the HTML input
+
+        $.ajax({                               // initialize an AJAX request
+            url: url,                        // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'stateid': countryId             // add the country id to the GET parameters
+            },
+            success: function (data) {              // `data` is the return of the `load_cities` view function
+                $("#dict_id1").html(data);       // replace the contents of the city input with the data that came from the server
+                /*
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (city) {
+                    html_data += `<option value="${city.id}">${city.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_city").html(html_data);  */
+            }
+        });
+    });
+
+
+        $("#dict_id").change(function () {
+        const url = $("#personForm").attr("data-dist-url");    // get the url of the `load_cities` view
+        const dictId = $(this).val();     // get the selected country ID from the HTML input
+
+        $.ajax({                           // initialize an AJAX request
+            url: url,                      // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'dictid': dictId          // add the country id to the GET parameters
+            },
+            success: function (data) {         // `data` is the return of the `load_cities` view function
+                $("#distributor_id").html(data);       // replace the contents of the city input with the data that came from the server
+                /*
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (city) {
+                    html_data += `<option value="${city.id}">${city.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_city").html(html_data);  */
+            }
+        });
+    });
+
+
+        var code;
+    function createCaptcha() {
+    //clear the contents of captcha div first
+    document.getElementById('captcha').innerHTML = "";
+    var charsArray =
+    "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var lengthOtp = 6;
+    var captcha = [];
+    for (var i = 0; i < lengthOtp; i++) {
+    //below code will not allow Repetition of Characters
+    var index = Math.floor(Math.random() * charsArray.length + 1); //get the next character from the array
+    if (captcha.indexOf(charsArray[index]) == -1)
+      captcha.push(charsArray[index]);
+    else i--;
+    }
+    var canv = document.createElement("canvas");
+    canv.id = "captcha";
+    canv.width = 100;
+    canv.height = 50;
+    var ctx = canv.getContext("2d");
+    ctx.font = "25px Georgia";
+    ctx.strokeText(captcha.join(""), 0, 30);
+    //storing captcha so that can validate you can save it somewhere else according to your specific requirements
+    code = captcha.join("");
+    document.getElementById("captcha").appendChild(canv); // adds the canvas to the body element
+    }
+
+    function validateCaptcha() {
+    //event.preventDefault();
+    //debugger
+    if (document.getElementById("cpatchaTextBox").value == code) {
+        //alert("Valid Captcha")
+        return true;
+    }
+    else{
+        //cpatchaTextBox.setCustomValidity("Invalid Captcha. try Again");
+        alert("Invalid Captcha. try Again");
+        createCaptcha();
+        return false;
+        }
+    }
+
+
+    function ajaxrequest(input_id,req_url,div_id)
+    {
+    var cn = document.getElementById(input_id).value;
+    var val = 'cname='+cn;
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = check;
+    request.open("POST",req_url,true);
+    request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    request.send(val)
+
+    function check()
+    {
+        if(request.readyState == 4)
+        {
+            var val = request.responseText;
+            var json_data = JSON.parse(val); //converting string(text) into json type
+            var sp = document.getElementById(div_id);
+
+            if(json_data.error != undefined)
+            {
+                sp.style.color = "red";
+                sp.innerText = json_data.error;
+                document.getElementById("b1").disabled = true;
+            }
+            else
+            {
+                //sp.style.color = "green";
+                //sp.innerText = json_data.message;
+                sp.innerText = "";
+                document.getElementById("b1").disabled = false;
+            }
+        }
+    }
+}
+    </script>
+
+{% endblock %}

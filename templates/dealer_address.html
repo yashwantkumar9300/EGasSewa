@@ -1,0 +1,59 @@
+
+{% extends 'common.html' %}
+{% block yash %}
+    {% load static %}
+    {% include 'admin_menu.html' %}
+    <br>
+
+     <form method="post" id="personForm" data-cities-url="{% url 'ajax_load_district' %}">
+    {% csrf_token %}
+    <table align="center" border="0" cellpadding="10" width="25%">
+        <tr>
+            <th colspan="2" style="text-align: center;font-size: 25px;background-color: cornflowerblue;color: white"> Add Distributor Agency </th>
+        </tr>
+        <tr>
+            <th>
+                {{ form.as_table }}
+            </th>
+        </tr>
+
+        <tr>
+            <th colspan="2" style="text-align: center;padding-top: 20px">
+                <button type="submit" class="btn btn-outline-primary"> Add </button>
+            </th>
+        </tr>
+    </table>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+    $("#id_address_state").change(function () {
+        const url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+        const countryId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'stateid': countryId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_address_dict").html(data);  // replace the contents of the city input with the data that came from the server
+                /*
+
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (city) {
+                    html_data += `<option value="${city.id}">${city.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_city").html(html_data);
+
+                */
+            }
+        });
+
+    });
+</script>
+
+ <br><br>
+
+{% endblock %}

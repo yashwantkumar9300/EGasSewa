@@ -1,0 +1,39 @@
+
+{% extends 'common.html' %}
+{% block yash %}
+    {% load static %}
+    <br><br>
+    <style>
+        body{
+            background-color: #e3f2fd;
+        }
+    </style>
+
+    <div style="text-align: center;">
+    <h3 style="color: #14498c"> Click On Pay With Razorpay </h3>
+    <br>
+    {% if payment %}
+    <form action="{% url 'success_payment' %}" method="POST">
+        <script
+                src="https://checkout.razorpay.com/v1/checkout.js"
+                data-key="rzp_test_0AztplFyH9hQyL"
+                data-amount="{{ payment.amount }}"
+                data-currency="INR"
+                data-order_id="{{ payment.id }}"
+                data-buttontext="Pay with Razorpay"
+                data-name="E Gas Sewa.in"
+                data-description="Test transaction"
+                data-image="{% static 'images/pahalLogo.png' %}"
+                data-prefill.name="Yashwant Kumar"
+                data-prefill.email="egassewa.in@gmail.com"
+                data-prefill.contact="9691060747"
+                data-theme.color="#F37254"
+                ></script>
+                <input type="hidden" custom="Hidden Element" name="hidden">
+                <input type="hidden" name="orderid" value="{{ orderid }}">
+            </form>
+        {% endif %}
+    </div>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

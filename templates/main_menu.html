@@ -1,0 +1,42 @@
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;padding-left: 30px">
+  <a class="navbar-brand" href="{% url 'main' %}" style="font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-primary"> Home </button></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+{#      <li class="nav-item active">#}
+{#        <a class="nav-link" href="{% url 'admin_login' %}" style="font-size: 18px;font-family: 'Times New Roman'"> Admin <span class="sr-only">(current)</span></a>#}
+{#      </li>#}
+{#      <li class="nav-item active">#}
+{#        <a class="nav-link" href="{% url 'dealer_login' %}" style="font-size: 18px;font-family: 'Times New Roman'"> Dealer </a>#}
+{#      </li>#}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'book_now' %}" style="font-size: 18px;font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-primary"> Book Now </button> </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'quick_book' %}" style="font-size: 18px;font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-primary"> Quick Book & Pay </button></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'user_register' %}" style="font-size: 18px;font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-primary"> New LPG Connection </button></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'user_status' %}" style="font-size: 18px;font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-primary"> Check Status </button></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'aboutus' %}" style="font-size: 18px;font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-primary"> AboutUs </button></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'contactus' %}" style="font-size: 18px;font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-primary"> ContactUs </button></a>
+      </li>
+{#      <li class="nav-item active" style="padding-left: 360px">#}
+{#        <a class="nav-link" href="" style="font-size: 18px;font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-danger"> New User </button> </a>#}
+{#      </li>#}
+      <li class="nav-item active" style="padding-left: 460px">
+        <a class="nav-link" href="{% url 'user_login' %}" style="font-size: 18px;font-family: 'Times New Roman'"> <button type="button" class="btn btn-outline-danger"> Sign in </button> <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>

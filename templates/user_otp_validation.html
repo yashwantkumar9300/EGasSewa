@@ -1,0 +1,45 @@
+
+{% extends 'common.html' %}
+{% block yash %}
+    {% load static %}
+{#    {% include 'main_menu.html' %}#}
+    <br>
+    <form action="{% url 'validate_user_otp' %}" method="post">
+    {% csrf_token %}
+    <table align="center" border="0" cellpadding="10">
+        <tr>
+            <th colspan="2" style="font-size: 30px; color: rebeccapurple;text-align:center">
+                Validate OTP
+            </th>
+        </tr>
+        <tr>
+            {% if msg %}
+                <th colspan="2" style="text-align: center;font-size: 25px;color: fuchsia">
+                    {{ msg }}
+                </th>
+                {% else %}
+                <th colspan="2" style="text-align: center;font-size: 25px;color: green">
+                OTP Send Your Email-Id. and Mobile Number
+            </th>
+            {% endif %}
+        </tr>
+        <tr>
+            <th width="150"> Enter OTP : </th>
+            <th>
+                <input class="form-control" type="text" placeholder="Enter Your OTP" name="t1" required>
+            </th>
+        </tr>
+        <tr>
+            <th colspan="2" style="text-align: right;font-size: 20px"> <a href="{% url 'user_resend_otp' %}"> Resend OTP </a> </th>
+        </tr>
+        <tr>
+            <th colspan="2" style="text-align: center; padding: 10px">
+                <button type="submit" class="btn btn-outline-success"> Continue </button>
+            </th>
+        </tr>
+
+    </table>
+    </form>
+
+ <br><br><br><br><br>
+{% endblock %}

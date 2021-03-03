@@ -1,0 +1,48 @@
+
+
+{% extends 'common.html' %}
+{% block yash %}
+    {% load static %}
+    {% include 'main_menu.html' %}
+    <style>
+         body{
+          background-color: #EFEFEF !important;
+        }
+    </style>
+
+    <table align="center" border="0" cellpadding="5" width="50%" style="background-color: white">
+    <tr>
+        <td style="color: blue;font-size: 20px">
+            Contact E Gas Sewa
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <img src="{% static 'images/contactus.jpg' %}">
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <div class="card" style="width: 46rem;alignment: center;position: center">
+        <div class="card-body"style="alignment: center;">
+        <h4 class="card-title"> Our Location: </h4>
+        <h5 class="card-title"> E Gas Sewa </h5>
+        <h5 class="card-title">2nd Floor, Sai Complex,<br>
+        Beside Aditya Trade Centre, Raipur,<br>
+        Raipur- C.G. State, Pin-491201. India </h5>
+
+        <p class="card-text"><img src="{% static 'images/contact.png' %}" width="30" height="30"> IND: +91 8435561043 , +91 9691060747 </p>
+
+        <p class="card-text"> <img src="{% static 'images/mail.png' %}" width="40" height="40"> info@egassewa.com </p>
+
+        <h5 class="card-title">Business Hours </h5>
+        <h5 class="card-title"> <img src="{% static 'images/time icon.png' %}" width="20" height="20">  Monday – Saturday: 7am to 9pm IST </h5>
+        <h5 class="card-title"> <img src="{% static 'images/time icon.png' %}" width="20" height="20">  Sunday – Closed </h5>
+    </div>
+    </div>
+        </th>
+    </tr>
+    </table>
+
+    <br><br>
+{% endblock %}

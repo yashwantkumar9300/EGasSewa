@@ -1,0 +1,156 @@
+
+{% extends 'common.html' %}
+{% if request.session.admin_status %}
+{% block yash %}
+    {% load static %}
+    {% include 'admin_menu.html' %}
+    <style>
+       .data{
+            font-size: 20px;
+            color: #ff00ff;
+            background-color: #d6edf8;
+            text-align: center;
+            }
+    </style>
+
+    <br>
+    {% if msg %}
+        <h3 style="text-align: center;color: magenta"> {{ msg }} </h3> <br>
+    {% endif %}
+
+    <form action="{% url 'save_dealer_address' %}" method="post" id="personForm" data-cities-url="{% url 'ajax_load_district' %}">
+    {% csrf_token %}
+    <table align="center" border="0" cellpadding="10" width="25%">
+        <tr>
+            <th style="text-align: center;font-size: 20px;background-color: cornflowerblue;color: white"> Add Distributor Agency </th>
+        </tr>
+        <tr>
+            <th>
+               <select class="form-control" name="t1" id="state_id" required>
+                        <option> --Select a State-- </option>
+                        {% for x in s_data %}
+                        <option value="{{ x.state_id }}">{{ x.state_name }}</option>
+                        {% endfor %}
+                        </select>
+            </th>
+        </tr>
+        <tr>
+            <th>
+               <select class="form-control" name="t2" id="dict_id" required>
+                    <option value="">--Select a District--</option>
+
+               </select>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <input type="number" class="form-control" placeholder="Distributor Idno" name="t3" required>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                 Distributor Agency Name <font color="red">*</font>
+                <textarea class="form-control" name="t4" id="address" required> </textarea>
+            </th>
+        </tr>
+
+        <tr>
+            <th colspan="2" style="text-align: center;padding-top: 20px">
+                <button type="submit" class="btn btn-outline-primary"> Add </button>
+            </th>
+        </tr>
+    </table>
+    </form>
+
+    <br><br>
+    {% if agency %}
+    <table border="2" align="center" cellpadding="10">
+        <tr>
+            <th class="data"> Idno </th>
+            <th class="data"> Agency Name </th>
+            <th class="data"> District </th>
+            <th class="data"> State </th>
+            <th class="data">Update</th>
+            <th class="data">Delete</th>
+        </tr>
+        {% for x in agency %}
+            <tr>
+                <th style="color: darkslateblue;text-align: center">{{ x.d_id }}</th>
+                <th style="color: darkslateblue;text-align: center">{{ x.agency_name }}</th>
+                <th style="color: darkslateblue;text-align: center">{{ x.district }}</th>
+                <th style="color: darkslateblue;text-align: center">{{ x.state }}</th>
+                <th style="text-align: center"><a href="?id={{ x.d_id }}"> <img src="{% static 'images/refresh1.png' %}"> </a> </th>
+                <th style="text-align: center"><a href="?id={{ x.d_id }}"> <img src="{% static 'images/delete2.png' %}" width="32" height="32"> </a> </th>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+ <br><br>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+    $("#state_id").change(function () {
+        const url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+        const countryId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'stateid': countryId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#dict_id").html(data);  // replace the contents of the city input with the data that came from the server
+                /*
+
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (city) {
+                    html_data += `<option value="${city.id}">${city.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_city").html(html_data);
+                */
+            }
+        });
+
+    });
+</script>
+
+{#    <script type="text/javascript">#}
+{#     var result;#}
+{#    function ajaxrequest(input_id,req_url,dict_id)#}
+{#    {#}
+{#        var cn = document.getElementById(input_id).value;#}
+{#        var val = 'state=' + cn;#}
+{#        var request = new XMLHttpRequest();#}
+{#        request.onreadystatechange = check;#}
+{#        request.open("POST", req_url,true);#}
+{#        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');#}
+{#        request.send(val)#}
+{##}
+{#        function check()#}
+{#        {#}
+{#            if (request.readyState === 4)#}
+{#            {#}
+{#                result = request.responseText;#}
+{#                var json_data = JSON.parse(result)#}
+{#                var dict_name = Object.values(json_data);#}
+{#                var dict_id = Object.keys(json_data)#}
+{#                //document.write(dict_name)#}
+{##}
+{#                var html_data = '<option value="">--Select District--</option>';#}
+{#                for(i=0;i<dict_name.length;i++)#}
+{#                {#}
+{#                    html_data+='<option value=>'+dict_name[i]+'</option>';#}
+{#                }#}
+{#                document.getElementById('dict_id').innerHTML=html_data;#}
+{#            }#}
+{#        }#}
+{#    }#}
+{#    </script>#}
+
+{% endblock %}
+
+{% else %}
+    <h3 style="text-align: center;color: magenta"> Please Login ! </h3>
+{% endif %}

@@ -1,0 +1,41 @@
+
+{% extends 'common.html' %}
+{% if request.session.dealer_id %}
+{% block yash %}
+    {% load static %}
+    {% include 'distributor_menu.html' %}
+
+    <br>
+    <form action="{% url 'cust_report' %}" method="post" target="_blank">
+    {% csrf_token %}
+    <table align="center" border="0" cellpadding="10" width="25%">
+        <tr>
+            <th style="text-align: center;font-size: 20px;background-color: cornflowerblue;color: white"> Booking Report  </th>
+        </tr>
+        <tr>
+            <th> From *
+               <input type="date" class="form-control" name="t1" required>
+            <tr>
+        </tr>
+        <tr>
+            <th> To *
+               <input type="date" class="form-control" name="t2" required>
+            <tr>
+        </tr>
+        <tr>
+            <th colspan="2" style="text-align: center;padding-top: 20px">
+                <button type="submit" class="btn btn-outline-primary"> Submit </button>
+            </th>
+        </tr>
+
+    </table>
+    </form>
+
+
+
+<br><br><br>
+{% endblock %}
+
+{% else %}
+    <h3 style="text-align: center;color: magenta"> Please Login ! </h3>
+{% endif %}

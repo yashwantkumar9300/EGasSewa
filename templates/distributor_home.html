@@ -1,0 +1,70 @@
+
+{% extends 'common.html' %}
+{% if request.session.dealer_id %}
+{% block yash %}
+{% load static %}
+    <style>
+        .img-circle{
+            border-radius: 50%;
+        }
+        .heading{
+            font-size: 20px;
+            font-family: "Times New Roman";
+        }
+        .data{
+            font-size: 20px;
+            font-family: "Times New Roman";
+        }
+    </style>
+    {% include 'distributor_menu.html' %}
+    <br>
+
+    <h3 style=" text-align: center;color: #14498c"> Welcome Mr/Miss - {{ data.fname }} {{ data.lname }} </h3>
+    <br>
+    <table align="center" border="6" cellpadding="5">
+    <tr>
+        <th colspan="2" class="img-circle" style="text-align: center;alignment: center"> <img src="{{ data.photo.url }}" width="100" height="100" style="text-align: center;alignment: center"> </th>
+    </tr>
+    <tr>
+        <th class="heading"> Status : </th>
+        <th class="data"> Active </th>
+    </tr>
+    <tr>
+        <th class="heading"> Full Name : </th>
+        <th class="data"> {{ data.fname }} {{ data.lname }}</th>
+    </tr>
+    <tr>
+        <th class="heading"> Father Name : </th>
+        <th class="data"> {{ data.ftname }} </th>
+    </tr>
+    <tr>
+        <th class="heading"> Date of Birth : </th>
+        <th class="data"> {{ data.dob }} </th>
+    </tr>
+    <tr>
+        <th class="heading"> Mobile No : </th>
+        <th class="data"> {{ data.mobile }}</th>
+    </tr>
+    <tr>
+        <th class="heading"> Email-Id : </th>
+        <th class="data"> {{ data.email }}</th>
+    </tr>
+    <tr>
+        <th class="heading"> Address : </th>
+        <th class="data"> <textarea> {{ data.house }} {{ data.street }} {{ data.city }} {{ data.district }} {{ data.state }} {{ data.pincode }}</textarea></th>
+    </tr>
+    <tr>
+        <th colspan="2" style="text-align: center; padding: 10px">
+            <button type="submit" class="btn btn-outline-success"> Update Details </button>
+        </th>
+    </tr>
+    </table>
+
+<br><br>
+{% endblock %}
+
+{% else %}
+    <h3 style="text-align: center;color: magenta"> Please Login ! </h3>
+{% endif %}
+
+

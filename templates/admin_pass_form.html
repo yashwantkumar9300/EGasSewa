@@ -1,0 +1,72 @@
+
+{% extends 'common.html' %}
+{% if request.session.admin_status %}
+    {% block yash %}
+    {% load static %}
+    {% include 'admin_menu.html' %}
+
+    {% if msg %}
+         <br>
+         <h3 style="text-align: center;color: fuchsia"> {{ msg }}</h3>
+      {% endif %}
+     {% if error %}
+         <br>
+         <h3 style="text-align: center;color: fuchsia"> {{ error }}</h3>
+      {% endif %}
+
+    <br>
+    <form action="{% url 'admin_change_pass' %}" method="post">
+    {% csrf_token %}
+    <table align="center" border="0" cellpadding="5" width="25%">
+    <tr>
+        <th style="text-align: center;font-size: 20px;background-color: cornflowerblue;color: white"> Change Password </th>
+    </tr>
+    <tr> <th> </th> </tr>
+    <tr>
+        <th>
+            <input class="form-control" type="password" placeholder="Enter Old Password" name="t1" required>
+        </th>
+    </tr><tr>
+        <th>
+            <input class="form-control" type="password" placeholder="Enter New Password" id="password" name="t2" required>
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <input class="form-control" type="password" placeholder="Confirm New Password" id="confirm_password" name="t3" required>
+        </th>
+    </tr>
+
+    <tr>
+        <th style="text-align: center;padding-top: 20px">
+            <button type="submit" class="btn btn-outline-primary"> Change </button>
+        </th>
+    </tr>
+
+    </table>
+    </form>
+
+    <br><br><br><br>
+
+    <script>
+        function validatePassword()
+        {
+            var password = document.getElementById("password"),confirm_password = document.getElementById("confirm_password");
+            if(password.value != confirm_password.value)
+            {
+                confirm_password.setCustomValidity("Invalid Confirm Password");
+            }
+            else
+            {
+                confirm_password.setCustomValidity('');
+            }
+        }
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+    </script>
+
+    {% endblock %}
+
+{% else %}
+    <h3 style="text-align: center;color: magenta"> Please Login ! </h3>
+{% endif %}

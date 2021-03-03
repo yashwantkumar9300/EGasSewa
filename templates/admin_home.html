@@ -1,0 +1,42 @@
+
+{% extends 'common.html' %}
+{% if request.session.admin_status %}
+{% block yash %}
+    {% load static %}
+    {% include 'admin_menu.html' %}
+
+    <style>
+        .admin_info
+        {
+            font-family: "Agency FB";
+            font-size: 20px;
+            color: blue;
+            width: 350px;
+            padding-left: 20px;
+        }
+        .img-circle {
+            border-radius: 50%;
+        }
+        </style>
+    <br>
+    <table align="center" border="0" cellpadding="5">
+    <tr>
+        <th colspan="2" style="text-align: center;color: white;background-color: cornflowerblue;font-size: 20px">
+            Welcome Admin
+        </th>
+    </tr>
+    <tr><th colspan="2"> </th></tr>
+    <tr><th rowspan="5"><img class="img-circle" src="{% static 'images/yk.jpg' %}" height="200" width="200"></th></tr>
+    <tr><th class="admin_info"> Name : Yashwant Kumar</th></tr>
+    <tr><th class="admin_info"> Contact No : 9691060747</th></tr>
+    <tr><th class="admin_info"> Email Id : yashkumar@gmail.com</th></tr>
+    <tr><th class="admin_info"> Address : Sonadula</th></tr>
+
+    </table>
+
+<br><br><br><br>
+{% endblock %}
+
+{% else %}
+    <h3 style="text-align: center;color: magenta"> Please Login ! </h3>
+{% endif %}

@@ -1,0 +1,30 @@
+
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" href="{% url 'distributor_home' %}" style="font-family: 'Times New Roman';padding-left: 10px"> Home </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'view_customer' %}" style="font-size: 18px;font-family: 'Times New Roman'"> View Connection Request <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'view_booking' %}" style="font-size: 18px;font-family: 'Times New Roman'"> View Booking Request </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'view_payment' %}" style="font-size: 18px;font-family: 'Times New Roman'"> View Payment Status </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'cust_breport' %}" style="font-size: 18px;font-family: 'Times New Roman'"> Booking Report </a>
+      </li>
+      <li class="nav-item active" style="padding-left: 450px">
+        <a class="nav-link" href="{% url 'distributor_pass_form' %}" style="font-size: 18px;font-family: 'Times New Roman'"> Change Password </a>
+      </li>
+      <li class="nav-item active" style="padding-left: 10px">
+        <a class="nav-link" href="{% url 'distributor_login' %}" style="font-size: 18px;font-family: 'Times New Roman';color: fuchsia"> <img src="{% static 'images/Logout icon - Copy.png' %}" width="30" height="30"> </a>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,53 @@
+
+{% extends 'common.html' %}
+{% if request.session.dealer_id %}
+{% block yash %}
+    {% load static %}
+    {% include 'user_menu.html' %}
+    <style>
+        .data{
+            text-align: center;
+            color: darkslateblue;
+        }
+        .header{
+            text-align: center;
+            font-size: 20px;
+            color: #ff00ff;
+            background-color: #d6edf8;
+        }
+    </style>
+    <br>
+
+    <table align="center" border="2" cellpadding="5">
+    <tr>
+        <th colspan="7" style="text-align: center;font-size: 20px;background-color: #14498c;color: white">
+            Your Payment Details
+        </th>
+    </tr>
+    <tr>
+        <th class="header"> Payment Date </th>
+        <th class="header"> Payment Ref No </th>
+        <th class="header"> Payment Id </th>
+        <th class="header"> Amount </th>
+        <th class="header"> Status </th>
+
+    </tr>
+    {% for x in data %}
+        <tr>
+        <th class="data"> {{ x.date }}</th>
+        <th class="data"> {{ x.reference }}</th>
+        <th class="data"> {{ x.paymentid }}</th>
+        <th class="data"> {{ x.price }}0</th>
+        <th class="data"> {{ x.status }}</th>
+        </tr>
+
+    {% endfor %}
+
+    </table>
+
+<br><br>
+{% endblock %}
+
+{% else %}
+    <h3 style="text-align: center;color: magenta"> Please Login ! </h3>
+{% endif %}

@@ -1,0 +1,16 @@
+
+{% extends 'common.html' %}
+{% block yash %}
+    {% load static %}
+    {% include 'main_menu.html' %}
+
+    <br><br>
+    <div class="text-center">
+    {% if msg %}
+        <img src="https://cdn.onlinewebfonts.com/svg/img_100251.png" class="img-fluid" style="height: 200px">
+        <h3 class="mt-4"> Thanks your payment has been recieved</h3>
+    {% endif %}
+    </div>
+
+<br><br>
+{% endblock %}

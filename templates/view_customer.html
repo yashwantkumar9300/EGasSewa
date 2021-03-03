@@ -1,0 +1,108 @@
+
+{% extends 'common.html' %}
+{% if request.session.dealer_id %}
+{% block yash %}
+    {% load static %}
+    {% include 'distributor_menu.html' %}
+
+    <style>
+        .data{
+            text-align: center;
+            color: darkslateblue;
+        }
+        .header{
+            text-align: center;
+            font-size: 20px;
+            color: #ff00ff;
+            background-color: #d6edf8;
+        }
+    </style>
+    <br>
+    <div style="height:auto; overflow-x: scroll;padding: 5px; width: 1510px">
+    <table align="center" border="2" cellpadding="5">
+    <tr>
+        <th colspan="22" style="text-align: center;font-size: 20px;background-color: #14498c;color: white">
+            All Connections
+        </th>
+    </tr>
+    <tr>
+        <th class="header"> Date </th>
+        <th class="header"> Consumer Id </th>
+        <th class="header"> Full Name </th>
+        <th class="header"> Father's Name </th>
+        <th class="header"> Date Of Birth </th>
+        <th class="header"> Gender </th>
+        <th class="header"> Mobile No </th>
+        <th class="header"> Email-Id </th>
+        <th class="header"> Address </th>
+        <th class="header"> Cylinder Type </th>
+        <th class="header"> Connection Type </th>
+        <th class="header"> Id Proof </th>
+        <th class="header"> Id Proof No </th>
+        <th class="header"> Address Proof </th>
+        <th class="header"> Address Proof No </th>
+        <th class="header"> Photo </th>
+        <th class="header"> Id Proof File </th>
+        <th class="header"> Address File </th>
+        <th class="header"> Status </th>
+        <th class="header"> Approved </th>
+        <th class="header"> Cancel </th>
+        <th class="header"> Update </th>
+    </tr>
+    {% for x in data %}
+        <tr>
+        <th class="data"> {{ x.date }}</th>
+        <th class="data"> {{ x.idno }}</th>
+        <th class="data"> {{ x.fname }} {{ x.lname }}</th>
+         <th class="data"> {{ x.ftname }}</th>
+        <th class="data"> {{ x.dob }}</th>
+        <th class="data"> {{ x.gender }}</th>
+        <th class="data"> {{ x.mobile }}</th>
+        <th class="data"> {{ x.email }}</th>
+        <th class="data"> <textarea readonly> {{ x.house }} {{ x.street }} {{ x.city }} {{ x.district }} {{ x.state }} {{ x.pincode }} </textarea></th>
+        <th class="data"> {{ x.cylinder }}</th>
+        <th class="data"> {{ x.connection }}</th>
+        <th class="data"> {{ x.id_proof }}</th>
+        <th class="data"> {{ x.id_number }}</th>
+        <th class="data"> {{ x.add_proof }}</th>
+        <th class="data"> {{ x.add_id }}</th>
+
+        <th class="data"> <img src="{{ x.photo.url }}" width="80" height="80"></th>
+        <th class="data"> <img src="{{ x.id_file.url }}" width="80" height="80"></th>
+        <th class="data"> <img src="{{ x.add_file.url }}" width="80" height="80"></th>
+
+        <th class="data"> {{ x.status }}</th>
+        <th class="data">
+            <form action="{% url 'customer_approval' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" value="{{ x.idno }}" name="t1">
+            <button type="submit" class="btn btn-outline-success"> Approved </button>
+            </form>
+        </th>
+        <th class="data">
+            <form action="{% url 'customer_cancel' %}" method="post">
+             {% csrf_token %}
+            <input type="hidden" value="{{ x.idno }}" name="t1">
+            <button type="submit" class="btn btn-outline-danger"> Cancel </button>
+            </form>
+        </th>
+        <th class="data">
+            <form action="" method="post">
+             {% csrf_token %}
+            <input type="hidden" value="{{ x.idno }}" name="t1">
+            <button type="submit" class="btn btn-outline-danger"> Update </button>
+            </form>
+        </th>
+        </tr>
+
+    {% endfor %}
+
+    </table>
+    </div>
+
+<br><br>
+{% endblock %}
+
+{% else %}
+    <h3 style="text-align: center;color: magenta"> Please Login ! </h3>
+{% endif %}

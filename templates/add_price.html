@@ -1,0 +1,68 @@
+
+{% extends 'common.html' %}
+{% if request.session.admin_status %}
+{% block yash %}
+    {% load static %}
+    {% include 'admin_menu.html' %}
+    <style>
+        .data{
+            font-size: 20px;
+            color: #ff00ff;
+            background-color: #d6edf8;
+            text-align: center;
+            }
+    </style>
+    <br>
+    <form action="{% url 'save_price' %}" method="post">
+    {% csrf_token %}
+    <table align="center" border="0" cellpadding="10" width="25%">
+        <tr>
+            <th style="text-align: center;font-size: 20px;background-color: cornflowerblue;color: white"> Add Cylinder Price </th>
+        </tr>
+        <tr>
+            <th>
+               <input type="text" class="form-control" placeholder="Enetr Price" name="t1" required pattern="[0-9-.]+">
+            <tr>
+        </tr>
+        <tr>
+            <th>
+               <input type="date" class="form-control" name="t2" required>
+            <tr>
+        </tr>
+        <tr>
+            <th colspan="2" style="text-align: center;padding-top: 20px">
+                <button type="submit" class="btn btn-outline-primary"> Add Price </button>
+            </th>
+        </tr>
+
+    </table>
+    </form>
+
+     <br><br>
+    {% if price %}
+    <table border="2" align="center" cellpadding="10">
+        <tr>
+            <th class="data"> Idno </th>
+            <th class="data"> Price </th>
+            <th class="data"> Date </th>
+            <th class="data">Update</th>
+            <th class="data">Delete</th>
+        </tr>
+        {% for x in price %}
+            <tr>
+                <th style="color: darkslateblue">{{ x.idno }}</th>
+                <th style="color: darkslateblue">{{ x.price }}0</th>
+                <th style="color: darkslateblue">{{ x.date }}</th>
+                <th style="text-align: center"><a href="?id={{ x.idno }}"> <img src="{% static 'images/refresh1.png' %}"> </a> </th>
+                <th style="text-align: center"><a href="?id={{ x.idno }}"> <img src="{% static 'images/delete2.png' %}" width="32" height="32"> </a> </th>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+<br><br>
+{% endblock %}
+
+{% else %}
+    <h3 style="text-align: center;color: magenta"> Please Login ! </h3>
+{% endif %}

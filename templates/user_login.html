@@ -1,0 +1,132 @@
+
+{% extends 'common.html' %}
+{% block yash %}
+{% include 'main_menu.html' %}
+{% load static %}
+    <style>
+        canvas{
+    /*prevent interaction with the canvas*/
+    pointer-events:none;
+    }
+    </style>
+
+    <br>
+    <form onsubmit="return validateCaptcha()" action="{% url 'user_login_check' %}" method="post">
+    {% csrf_token %}
+    <table align="center" border="0" width="350" cellpadding="7">
+     <tr>
+         <th style="text-align: center; font-size: 20px; font-family: 'Times New Roman'; background-color: cornflowerblue; color: white"> Login </th>
+     </tr>
+        <tr> <th> </th></tr>
+    <tr>
+        <th>
+            <div class="input-group flex-nowrap">
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="addon-wrapping"><img src="{% static 'images/user.png' %}" width="20" height="20"></span>
+            </div>
+            <input class="form-control" type="text" placeholder="Email-Id" name="t1" required aria-label="Username" aria-describedby="addon-wrapping" >
+            </div>
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <div class="input-group flex-nowrap">
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="addon-wrapping"><img src="{% static 'images/lock.png' %}" width="20" height="20"></span>
+            </div>
+            <input class="form-control" type="password" placeholder="Consumer Number" name="t2" required aria-label="Username" aria-describedby="addon-wrapping" >
+            </div>
+        </th>
+    </tr>
+     <tr>
+        <th style="text-align: right;color: red;font-family: 'Times New Roman';font-size: 18px;padding-right: 10px">
+            <a href="{% url 'user_forgot_pass' %}"> Forgot Consumer Number </a> <br>
+{#            <a href="{% url 'user_register' %}"> New User? Register Now </a>#}
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <input class="form-control" type="text" placeholder="Enter Captcha code shown below" name="t3" id="cpatchaTextBox" required>
+        </th>
+    </tr>
+    <tr>
+        <th style="font-family: 'Times New Roman'; font-size: 20px; color: red">
+            <table align="center" border="0" width="300" cellpadding="5">
+            <tr>
+                <th> Captcha Code : </th>
+                <th> <span id="captcha"> </span> </th>
+                <th>
+                    <img src="{% static 'images/refresh.png' %}" width="25" height="25" onclick="createCaptcha()">
+                </th>
+            </tr>
+            </table>
+        </th>
+    </tr>
+    <tr>
+        <th style="text-align: center; padding: 10px">
+            <button type="submit" class="btn btn-outline-primary btn-group-lg btn-block"> Login </button>
+        </th>
+    </tr>
+
+    {% if error %}
+    <tr>
+    <th style="text-align: center">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong> {{ error }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    </th>
+    </tr>
+     {% endif %}
+    </table>
+    </form>
+
+    <script>
+
+    var code;
+    function createCaptcha() {
+    //clear the contents of captcha div first
+    document.getElementById('captcha').innerHTML = "";
+    var charsArray =
+    "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var lengthOtp = 6;
+    var captcha = [];
+    for (var i = 0; i < lengthOtp; i++) {
+    //below code will not allow Repetition of Characters
+    var index = Math.floor(Math.random() * charsArray.length + 1); //get the next character from the array
+    if (captcha.indexOf(charsArray[index]) == -1)
+      captcha.push(charsArray[index]);
+    else i--;
+    }
+    var canv = document.createElement("canvas");
+    canv.id = "captcha";
+    canv.width = 100;
+    canv.height = 50;
+    var ctx = canv.getContext("2d");
+    ctx.font = "25px Georgia";
+    ctx.strokeText(captcha.join(""), 0, 30);
+    //storing captcha so that can validate you can save it somewhere else according to your specific requirements
+    code = captcha.join("");
+    document.getElementById("captcha").appendChild(canv); // adds the canvas to the body element
+    }
+
+    function validateCaptcha() {
+    //event.preventDefault();
+    //debugger
+    if (document.getElementById("cpatchaTextBox").value == code) {
+        //alert("Valid Captcha")
+        return true;
+    }
+    else{
+        //cpatchaTextBox.setCustomValidity("Invalid Captcha. try Again");
+        alert("Invalid Captcha. try Again");
+        createCaptcha();
+        return false;
+        }
+    }
+ </script>
+
+    <br><br>
+{% endblock %}

@@ -1,0 +1,13 @@
+
+{% extends 'common.html' %}
+{% block yash %}
+    {% load static %}
+    {% include 'main_menu.html' %}
+    <br>
+    {% if msg %}
+        <h2 style="text-align: center; color: magenta"> {{ msg }}</h2>
+        <h2 style="text-align: center; color: magenta"> Your Reference Number is : {{ urefno }}</h2>
+    {% endif %}
+
+    <br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}
